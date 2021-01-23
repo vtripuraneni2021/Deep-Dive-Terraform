@@ -51,28 +51,28 @@ pipeline {
                 }
             }
         }
-        stage('NetworkApply'){
-            steps {
-                script{
-                    def apply = false
-                    try {
-                        input message: 'confirm apply', ok: 'Apply Config'
-                        apply = true
-                    } catch (err) {
-                        apply = false
-                        dir('m8/networking/'){
-                            sh "terraform destroy -auto-approve"
-                        }
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                    if(apply){
-                        dir('m8/networking/'){
-                            unstash "terraform-networking-plan"
-                            sh 'terraform apply terraform-networking.tfplan'
-                        }
-                    }
-                }
-            }
-        }
-    }
+        //stage('NetworkApply'){
+            //steps {
+                //script{
+                    //def apply = false
+                    //try {
+                        //input message: 'confirm apply', ok: 'Apply Config'
+                        //apply = true
+                    //} catch (err) {
+                        //apply = false
+                        //dir('m8/networking/'){
+                            //sh "terraform destroy -auto-approve"
+                        //}
+                        //currentBuild.result = 'UNSTABLE'
+                    //}
+                    //if(apply){
+                        //dir('m8/networking/'){
+                            //unstash "terraform-networking-plan"
+                            //sh 'terraform apply terraform-networking.tfplan'
+                        //}
+                    //}
+                //}
+            //}
+        //}
+    //}
 }
